@@ -38,7 +38,7 @@ Make sure you have the Rust toolchain installed (`cargo`, `rustc`).
 ### Building from source
 ```bash
 # Clone the repository
-git clone https://github.com
+git clone https://github.com/nexus-forg/zeroenv.git
 
 # Navigate to the directory
 cd zeroenv

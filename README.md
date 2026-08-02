@@ -3,7 +3,9 @@
 [![License: MIT](https://shields.io)](https://opensource.org)
 [![Rust](https://shields.io)](https://rust-lang.org)
 [![PRs Welcome](https://shields.io)](http://makeapullrequest.com)
-
+   [![Crates.io](https://img.shields.io/crates/v/zeroenv.svg)](https://crates.io/crates/zeroenv)
+   [![Downloads](https://img.shields.io/crates/d/zeroenv.svg)](https://crates.io/crates/zeroenv)
+   
 **ZeroEnv** is a zero-configuration, lightning-fast development environment manager written in Rust. 
 
 Inspired by the structural simplicity of Git, `zeroenv` eliminates the friction of local environment setups. Instead of writing heavy `Dockerfiles` or learning complex `Nix` expressions, `zeroenv` automatically scans your repository, detects required toolchains, and locks the versions into a lightweight configuration.

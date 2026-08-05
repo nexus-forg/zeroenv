@@ -64,7 +64,19 @@ zeroenv init
 # View currently locked project environment
 zeroenv status
 ```
+### Diagnose and fix environment issues
 
+```bash
+$ zeroenv doctor
+🩺 zeroenv doctor: диагностика окружения...
+
+❌ Node.js: NOT INSTALLED (требуется >=18.0.0)
+💡 FIX для Node.js:
+   🐧 Linux:   sudo apt update && sudo apt install nodejs npm
+   🍎 macOS:   brew install node
+   🪟 Windows: winget install OpenJS.NodeJS.LTS
+
+💡 После установки зависимостей запустите 'zeroenv check', чтобы убедиться, что всё работает.
 ---
 
 ## 🗺️ Roadmap & Ecosystem Status

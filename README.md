@@ -45,7 +45,7 @@ That's it. No YAML files, no Docker, no complex setup.
 
 ---
 
-## ✨ Features
+#  Features
 
 ### 🔍 Automatic Detection
 Scans your project directory and detects:
@@ -81,7 +81,7 @@ GO_VERSION=1.21
 PYTHON_DEPS=Django==4.2.0, requests>=2.28.0
 RUST_PROJECT=true
 
-📥 Installation
+# 📥 Installation
 From crates.io (Recommended)
 
 cargo install zeroenv
@@ -96,7 +96,7 @@ System Requirements
     Rust 1.70 or higher (for building from source)
     No runtime dependencies (compiled binary works out of the box)
 
-📖 Usage
+# 📖 Usage
 zeroenv init
 Scans the current directory and generates a .zeroenv configuration file:
 

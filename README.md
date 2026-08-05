@@ -1,6 +1,5 @@
 <div align="center">
 
-
 **Zero-configuration development environment manager**
 
 [![Crates.io](https://img.shields.io/crates/v/zeroenv.svg)](https://crates.io/crates/zeroenv)
@@ -40,20 +39,23 @@ zeroenv check
 
 # Get OS-specific installation commands for missing tools
 zeroenv doctor
+```
 
 That's it. No YAML files, no Docker, no complex setup.
 
-✨ Features
-🔍 Automatic Detection
+---
+
+## ✨ Features
+
+### 🔍 Automatic Detection
 Scans your project directory and detects:
+- **Node.js**: Parses `package.json` for engine requirements.
+- **Go**: Extracts version from `go.mod`.
+- **Python**: Reads dependencies from `requirements.txt` or `pyproject.toml`.
+- **Rust**: Detects `Cargo.toml` projects.
 
-    Node.js: Parses package.json for engine requirements
-    Go: Extracts version from go.mod
-    Python: Reads dependencies from requirements.txt
-    Rust: Detects Cargo.toml projects
-
-🩺 Smart Diagnostics
-The doctor command doesn't just tell you what's missing—it tells you how to fix it:
+### 🩺 Smart Diagnostics
+The `doctor` command doesn't just tell you what's missing — it provides the exact, OS-specific package manager commands to install them instantly.
 $ zeroenv doctor
 🩺 zeroenv doctor: диагностика окружения...
 

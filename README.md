@@ -1,72 +1,133 @@
-# 🚀 ZeroEnv
+<div align="center">
 
-[![License: MIT](https://shields.io)](https://opensource.org)
-[![Rust](https://shields.io)](https://rust-lang.org)
-[![PRs Welcome](https://shields.io)](http://makeapullrequest.com)
-   [![Crates.io](https://img.shields.io/crates/v/zeroenv.svg)](https://crates.io/crates/zeroenv)
-   [![Downloads](https://img.shields.io/crates/d/zeroenv.svg)](https://crates.io/crates/zeroenv)
-   
-**ZeroEnv** is a zero-configuration, lightning-fast development environment manager written in Rust. 
 
-Inspired by the structural simplicity of Git, `zeroenv` eliminates the friction of local environment setups. Instead of writing heavy `Dockerfiles` or learning complex `Nix` expressions, `zeroenv` automatically scans your repository, detects required toolchains, and locks the versions into a lightweight configuration.
+**Zero-configuration development environment manager**
 
----
+[![Crates.io](https://img.shields.io/crates/v/zeroenv.svg)](https://crates.io/crates/zeroenv)
+[![Downloads](https://img.shields.io/crates/d/zeroenv.svg)](https://crates.io/crates/zeroenv)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org/)
 
-## ✨ Features
+[Quick Start](#quick-start) • [Features](#features) • [Installation](#installation) • [Usage](#usage) • [Why zeroenv?](#why-zeroenv)
 
-- **Zero Configuration:** No hand-crafted configs required. It infers everything from your code.
-- **Ultra Lightweight:** Compiled into a single, dependency-free binary with zero daemon overhead.
-- **Language Agnostic:** Built to support multiple ecosystems out of the box.
-- **Deterministic:** Locks local environment states via a simple `.zeroenv` state file.
+</div>
 
 ---
 
-## 🛠️ How It Works
+## 🎯 What is zeroenv?
 
-`zeroenv` acts as an automated detective for your project dependencies:
+**zeroenv** eliminates the friction of local environment setups. Instead of writing heavy Dockerfiles or learning complex Nix expressions, zeroenv automatically scans your repository, detects required toolchains, and locks the versions into a lightweight configuration.
 
-1. **`zeroenv init`** – Scans the current directory for project markers (`package.json`, `go.mod`, etc.), extracts engine/runtime constraints, and generates a unified `.zeroenv` manifest.
-2. **`zeroenv status`** – Reads the local manifest and outputs the exact runtime state required for the current workspace.
-
----
-
-## 📦 Installation
-
-Currently, `zeroenv` is in active MVP stage and can be built from source.
-
-### Prerequisites
-Make sure you have the Rust toolchain installed (`cargo`, `rustc`).
-
-### Building from source
-```bash
-# Clone the repository
-git clone https://github.com/nexus-forg/zeroenv.git
-
-# Navigate to the directory
-cd zeroenv
-
-# Build the optimized production binary
-cargo build --release
-```
-
-The compiled binary will be available at `./target/release/zeroenv`. You can move it to your local `PATH` (e.g., `/usr/local/bin/`) for global access.
+Inspired by the structural simplicity of Git, zeroenv is:
+- **Zero Configuration**: No hand-crafted configs required. It infers everything from your code.
+- **Ultra Lightweight**: Compiled into a single, dependency-free binary with zero daemon overhead.
+- **Language Agnostic**: Built to support multiple ecosystems out of the box.
+- **Deterministic**: Locks local environment states via a simple `.zeroenv` state file.
 
 ---
 
-## 🏃‍♂️ Usage
-
-Go to any of your software projects (Node.js, Go, Python, or Rust) and run:
+## 🚀 Quick Start
 
 ```bash
-# Initialize and scan environment
+# Install zeroenv
+cargo install zeroenv
+
+# Scan your project and generate .zeroenv
 zeroenv init
 
-# View currently locked project environment
-zeroenv status
-```
-### Diagnose and fix environment issues
+# Check if your system meets requirements
+zeroenv check
 
-```bash
+# Get OS-specific installation commands for missing tools
+zeroenv doctor
+
+That's it. No YAML files, no Docker, no complex setup.
+
+✨ Features
+🔍 Automatic Detection
+Scans your project directory and detects:
+
+    Node.js: Parses package.json for engine requirements
+    Go: Extracts version from go.mod
+    Python: Reads dependencies from requirements.txt
+    Rust: Detects Cargo.toml projects
+
+🩺 Smart Diagnostics
+The doctor command doesn't just tell you what's missing—it tells you how to fix it:
+$ zeroenv doctor
+🩺 zeroenv doctor: диагностика окружения...
+
+❌ Node.js: NOT INSTALLED (требуется >=18.0.0)
+💡 FIX для Node.js:
+   🐧 Linux:   sudo apt update && sudo apt install nodejs npm
+   🍎 macOS:   brew install node
+   🪟 Windows: winget install OpenJS.NodeJS.LTS
+
+❌ Go: NOT INSTALLED (требуется 1.21)
+💡 FIX для Go:
+   🐧 Linux:   sudo apt install golang-go
+   🍎 macOS:   brew install go
+   🪟 Windows: winget install GoLang.Go
+
+💡 После установки зависимостей запустите 'zeroenv check', чтобы убедиться, что всё работает.
+
+📦 Lightweight State File
+The .zeroenv file is simple, human-readable, and easy to version control:
+
+NODE_VERSION=>=18.0.0
+GO_VERSION=1.21
+PYTHON_DEPS=Django==4.2.0, requests>=2.28.0
+RUST_PROJECT=true
+
+📥 Installation
+From crates.io (Recommended)
+
+cargo install zeroenv
+
+From Source:
+git clone https://github.com/nexus-forg/zeroenv.git
+cd zeroenv
+cargo build --release
+./target/release/zeroenv
+System Requirements
+
+    Rust 1.70 or higher (for building from source)
+    No runtime dependencies (compiled binary works out of the box)
+
+📖 Usage
+zeroenv init
+Scans the current directory and generates a .zeroenv configuration file:
+
+$ zeroenv init
+Scanning project directory...
+Detected: Node.js project
+  Required Node.js: >=18.0.0
+Detected: Go project
+  Required Go: 1.21
+Detected: Python project
+  Dependencies: Django==4.2.0, requests>=2.28.0
+Detected: Rust project
+Configuration successfully saved to .zeroenv
+
+zeroenv check
+
+Validates your system against the project requirements:
+
+$ zeroenv check
+🔍 Проверяю окружение...
+
+✅ Node.js: OK (v20.10.0 satisfies >=18.0.0)
+✅ Go: OK (1.21.5 satisfies 1.21)
+✅ Python: INSTALLED (version 3.11.5)
+   📦 Dependencies from .zeroenv: Django==4.2.0, requests>=2.28.0
+✅ Rust: INSTALLED (rustc 1.75.0)
+
+💡 Проверка завершена.
+
+zeroenv doctor
+
+Diagnoses issues and provides OS-specific installation commands:
+
 $ zeroenv doctor
 🩺 zeroenv doctor: диагностика окружения...
 
@@ -77,40 +138,60 @@ $ zeroenv doctor
    🪟 Windows: winget install OpenJS.NodeJS.LTS
 
 💡 После установки зависимостей запустите 'zeroenv check', чтобы убедиться, что всё работает.
----
 
-## 🗺️ Roadmap & Ecosystem Status
+zeroenv status
 
-We are building `zeroenv` incrementally. Here is the current support status:
+$ zeroenv status
+Current project environment (.zeroenv):
+NODE_VERSION=>=18.0.0
+GO_VERSION=1.21
+PYTHON_DEPS=Django==4.2.0, requests>=2.28.0
+RUST_PROJECT=true
 
-### Ecosystem Detectors
-- [x] **Node.js** (via `package.json` engines parsing)
-- [x] **Go** (via `go.mod` version line extraction)
-- [x] **Python** (via basic `requirements.txt` parsing)
-- [x] **Rust** (via `Cargo.toml` project discovery)
-- [ ] **PHP** (via `composer.json`) *(Planned)*
-- [ ] **Ruby** (via `Gemfile`) *(Planned)*
+🏗️ Architecture
+zeroenv is built with a clean, modular architecture:
 
-### Core Architecture
-- [x] Local configuration serialization (`.zeroenv`)
-- [ ] Automatic download of missing language binaries into `~/.zeroenv/bin/` *(Next major step)*
-- [ ] Context-aware shell mutation (Auto-activating environments on `cd`)
-- [ ] Lightweight sandboxing / OS-level process isolation
+src/
+├── main.rs       # CLI interface and command routing
+├── config.rs     # .zeroenv file reading/writing
+├── scanner.rs    # Project manifest parsing
+└── checker.rs    # System validation and diagnostics
 
----
+This design makes it easy to add support for new languages and ecosystems.
 
-## 🤝 Contributing
+🗺️ Roadmap
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+    Terminal color output (green for OK, red for errors)
+    Git hooks integration (auto-check on git checkout)
+    Support for PHP (composer.json)
+    Support for Ruby (Gemfile)
+    Support for Java (pom.xml, build.gradle)
+    Interactive mode for version selection
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+🤝 Contributing
+Contributions are welcome! If you have ideas for new features, bug fixes, or improvements:
 
----
+    Fork the repository
+    Create your feature branch (git checkout -b feature/amazing-feature)
+    Commit your changes (git commit -m 'Add amazing feature')
+    Push to the branch (git push origin feature/amazing-feature)
+    Open a Pull Request
 
-## 📄 License
+Please open an issue first to discuss major changes.
 
-Distributed under the MIT License. See `LICENSE` for more information.
+📄 License
+This project is licensed under the MIT License - see the LICENSE
+ file for details.
+🙏 Acknowledgments
+
+    Built with Rust
+    Inspired by the simplicity of Git
+    Published on crates.io
+
+<div align="center">
+
+Made with ❤️ by developers, for developers
+⭐ Star this repo
+ if you find it useful!
+</div>
+

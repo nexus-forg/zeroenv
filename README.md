@@ -7,7 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org/)
 
-[Quick Start](#quick-start) • [Features](#features) • [Installation](#installation) • [Usage](#usage) • [Why zeroenv?](#why-zeroenv)
+[Quick Start](#quick-start) • [Features](#features) • [Installation](#installation) • [Usage](#usage) 
 
 </div>
 
@@ -25,7 +25,7 @@ Inspired by the structural simplicity of Git, zeroenv is:
 
 ---
 
-## 🚀 Quick Start
+# 🚀 Quick Start
 
 ```bash
 # Install zeroenv
